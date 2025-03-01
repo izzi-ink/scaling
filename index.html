@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Organizational Evolution Matrix</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Organizational Evolution Matrix</h1>
+        
+        <div class="stage-selector">
+            <h2>Organization Stage</h2>
+            <div class="button-group">
+                <button id="startupBtn" class="active" onclick="applyStagePreset('startup')">Startup</button>
+                <button id="growthPhaseBtn" onclick="applyStagePreset('growthPhase')">Growth Phase</button>
+                <button id="establishedBtn" onclick="applyStagePreset('established')">Established</button>
+                <button id="enterpriseBtn" onclick="applyStagePreset('enterprise')">Enterprise</button>
+            </div>
+        </div>
+        
+        <!-- Structure Section -->
+        <div class="category-section" style="border: 1px solid rgba(54, 162, 235, 0.3)">
+            <h2 class="category-title">Structural Evolution</h2>
+            <div class="attributes-container" id="structureAttributes">
+                <!-- Structure sliders will be inserted here -->
+            </div>
+            <div>
+                <div class="chart-container">
+                    <canvas id="structureChart"></canvas>
+                </div>
+                <div class="category-analysis" id="structureAnalysis"></div>
+            </div>
+        </div>
+
+        <!-- Functional Section -->
+        <div class="category-section" style="border: 1px solid rgba(255, 99, 132, 0.3)">
+            <h2 class="category-title">Functional Specialization</h2>
+            <div class="attributes-container" id="functionalAttributes">
+                <!-- Functional sliders will be inserted here -->
+            </div>
+            <div>
+                <div class="chart-container">
+                    <canvas id="functionalChart"></canvas>
+                </div>
+                <div class="category-analysis" id="functionalAnalysis"></div>
+            </div>
+        </div>
+
+        <!-- Integration Section -->
+        <div class="category-section" style="border: 1px solid rgba(75, 192, 192, 0.3)">
+            <h2 class="category-title">System Integration</h2>
+            <div class="attributes-container" id="integrationAttributes">
+                <!-- Integration sliders will be inserted here -->
+            </div>
+            <div>
+                <div class="chart-container">
+                    <canvas id="integrationChart"></canvas>
+                </div>
+                <div class="category-analysis" id="integrationAnalysis"></div>
+            </div>
+        </div>
+
+        <div class="analysis" id="analysisContainer">
+            <h2>Organizational Analysis</h2>
+            <div id="analysisContent"></div>
+        </div>
+    </div>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>
