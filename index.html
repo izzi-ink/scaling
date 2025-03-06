@@ -2,72 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive tool to visualize organizational evolution from startup to enterprise">
     <title>Organizational Evolution Matrix</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body>
+    <div id="loadingIndicator" class="loading" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
     <div class="container">
         <h1>Organizational Evolution Matrix</h1>
         
-        <div class="stage-selector">
-            <h2>Organization Stage</h2>
-            <div class="button-group">
-                <button id="startupBtn" class="active" onclick="applyStagePreset('startup')">Startup</button>
-                <button id="growthPhaseBtn" onclick="applyStagePreset('growthPhase')">Growth Phase</button>
-                <button id="establishedBtn" onclick="applyStagePreset('established')">Established</button>
-                <button id="enterpriseBtn" onclick="applyStagePreset('enterprise')">Enterprise</button>
+        <div class="stage-selector" role="region" aria-labelledby="stage-selector-heading">
+            <h2 id="stage-selector-heading">Organization Stage</h2>
+            <div class="button-group" role="radiogroup" aria-label="Select organization stage">
+                <button id="startupBtn" class="active tooltip" onclick="applyStagePreset('startup')" aria-pressed="true">
+                    Startup
+                    <span class="tooltip-text">Early-stage organization with generalist roles and minimal hierarchy</span>
+                </button>
+                <button id="growthPhaseBtn" class="tooltip" onclick="applyStagePreset('growthPhase')" aria-pressed="false">
+                    Growth Phase
+                    <span class="tooltip-text">Developing specialized departments with emerging formal processes</span>
+                </button>
+                <button id="establishedBtn" class="tooltip" onclick="applyStagePreset('established')" aria-pressed="false">
+                    Established
+                    <span class="tooltip-text">Mature organization with defined functional boundaries and standardized processes</span>
+                </button>
+                <button id="enterpriseBtn" class="tooltip" onclick="applyStagePreset('enterprise')" aria-pressed="false">
+                    Enterprise
+                    <span class="tooltip-text">Complex organization with high specialization and formal integration mechanisms</span>
+                </button>
             </div>
         </div>
         
         <!-- Structure Section -->
-        <div class="category-section" style="border: 1px solid rgba(54, 162, 235, 0.3)">
-            <h2 class="category-title">Structural Evolution</h2>
-            <div class="attributes-container" id="structureAttributes">
+        <div class="category-section" style="border: 1px solid rgba(54, 162, 235, 0.3)" role="region" aria-labelledby="structure-heading">
+            <h2 id="structure-heading" class="category-title">Structural Evolution</h2>
+            <div class="attributes-container" id="structureAttributes" role="group" aria-label="Structural attributes">
                 <!-- Structure sliders will be inserted here -->
             </div>
             <div>
-                <div class="chart-container">
+                <div class="chart-container" aria-hidden="true">
                     <canvas id="structureChart"></canvas>
                 </div>
-                <div class="category-analysis" id="structureAnalysis"></div>
+                <div class="category-analysis" id="structureAnalysis" aria-live="polite" aria-label="Structure analysis"></div>
             </div>
         </div>
 
         <!-- Functional Section -->
-        <div class="category-section" style="border: 1px solid rgba(255, 99, 132, 0.3)">
-            <h2 class="category-title">Functional Specialization</h2>
-            <div class="attributes-container" id="functionalAttributes">
+        <div class="category-section" style="border: 1px solid rgba(255, 99, 132, 0.3)" role="region" aria-labelledby="functional-heading">
+            <h2 id="functional-heading" class="category-title">Functional Specialization</h2>
+            <div class="attributes-container" id="functionalAttributes" role="group" aria-label="Functional attributes">
                 <!-- Functional sliders will be inserted here -->
             </div>
             <div>
-                <div class="chart-container">
+                <div class="chart-container" aria-hidden="true">
                     <canvas id="functionalChart"></canvas>
                 </div>
-                <div class="category-analysis" id="functionalAnalysis"></div>
+                <div class="category-analysis" id="functionalAnalysis" aria-live="polite" aria-label="Functional analysis"></div>
             </div>
         </div>
 
         <!-- Integration Section -->
-        <div class="category-section" style="border: 1px solid rgba(75, 192, 192, 0.3)">
-            <h2 class="category-title">System Integration</h2>
-            <div class="attributes-container" id="integrationAttributes">
+        <div class="category-section" style="border: 1px solid rgba(75, 192, 192, 0.3)" role="region" aria-labelledby="integration-heading">
+            <h2 id="integration-heading" class="category-title">System Integration</h2>
+            <div class="attributes-container" id="integrationAttributes" role="group" aria-label="Integration attributes">
                 <!-- Integration sliders will be inserted here -->
             </div>
             <div>
-                <div class="chart-container">
+                <div class="chart-container" aria-hidden="true">
                     <canvas id="integrationChart"></canvas>
                 </div>
-                <div class="category-analysis" id="integrationAnalysis"></div>
+                <div class="category-analysis" id="integrationAnalysis" aria-live="polite" aria-label="Integration analysis"></div>
             </div>
         </div>
 
-        <div class="analysis" id="analysisContainer">
-            <h2>Organizational Analysis</h2>
-            <div id="analysisContent"></div>
+        <div class="analysis" id="analysisContainer" role="region" aria-labelledby="analysis-heading">
+            <h2 id="analysis-heading">Organizational Analysis</h2>
+            <div id="analysisContent" aria-live="polite"></div>
         </div>
     </div>
+
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle light/dark theme">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="themeIcon">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
 
     <script src="./js/main.js"></script>
 </body>
